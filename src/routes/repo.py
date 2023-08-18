@@ -12,7 +12,7 @@ crc = CommonRouteController(table='repos')
 router = APIRouter(prefix='/repo', tags=['repository'])
 
 
-@router.get('/all', response_description='get all repo', response_model=List[repo.Repo])
+@router.get('/all', response_description='get all repo', response_model=list[repo.Repo])
 async def findall(req: Request):
     """
     __summary__: Find all posts from db
