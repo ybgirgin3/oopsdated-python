@@ -4,4 +4,7 @@ pymongo==4.4.1
 python-dotenv==1.0.0
 uvicorn==0.23.1
 httpx==0.24.1   # just one of the dependecies of starlette
+flower==1.2.0
+celery==5.2.7
+redis=4.3.4
 
