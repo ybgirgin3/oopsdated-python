@@ -1,60 +1,25 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from celery.result import AsyncResult
-from redis import Redis
-from redis.lock import Lock as RedisLock
-
-from src.tasks import task
-
-redis_instance = Redis.from_url(task.redis_url)
-lock = RedisLock(redis_instance, name='task_id')
-
-REDIS_TASK_KEY = 'current_task'
+from celery import Celery
+from fastapi import FastAPI
+import os
 
 app = FastAPI()
 
-
-class TaskOut(BaseModel):
-    id: str
-    status: str
-    result: str | None = None
-
-
-@app.get('/start')
-def start() -> TaskOut:
-    try:
-        if not lock.acquire(blocking_timeout=4):
-            raise HTTPException(status_code=500, detail='Could not acquire lock')
-
-        task_id = redis_instance.get(REDIS_TASK_KEY)
-        if task_id is None or task.app.AsyncResult(task_id).ready():
-            # no task was evert run, or the last task finished already
-            r = task.dummy_task.delay()
-            redis_instance.set(REDIS_TASK_KEY, r.task_id)
-            return _to_task_out(r)
-
-        else:
-            raise HTTPException(status_code=400, detail='A task is already executed')
-
-    finally:
-        lock.release()
+# config
+# redis_url = os.getenv('REDIS_URL', 'redis://default:redispw@localhost:32768')
+celery = Celery(
+    __name__, 
+    broker="redis://127.0.0.1:6379/0",
+    backend="redis://127.0.0.1:6379/0"
+)
 
 
-@app.get('/status')
-def status(task_id: str = None) -> TaskOut:
-    task_id = task_id or redis_instance.get(REDIS_TASK_KEY)
-    if task_id is None:
-        raise HTTPException(
-            status_code=400, detail=f'Could not determine task {task_id}'
-        )
-    r = task.app.AsyncResult(task_id)
-    return _to_task_out(r)
+@app.get('/')
+async def root():
+    return {'message': 'Hello World'}
 
 
-
-def _to_task_out(r: AsyncResult) -> TaskOut:
-    return TaskOut(
-        id=r.task_id, 
-        status=r.status,
-        result=r.traceback if r.failed() else r.result
-    )
+@celery.task()
+def divide(x, y):
+    import time
+    time.sleep(5)
+    return x / y

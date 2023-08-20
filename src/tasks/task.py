@@ -16,9 +16,6 @@ def plan_repos(self: BaseTask):
     pass
 
 
-
-
-
 # scan
 @celery_app.task(
     bind=True,
@@ -30,11 +27,10 @@ def scrape_repo(
     pass
 
 
+# extract
 @celery_app.task(
     bind=True,
     name='oopsdated.extract'
 )
 def extract_repo(self: BaseTask):
     pass
-
-
