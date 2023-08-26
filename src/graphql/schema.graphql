@@ -1,0 +1,47 @@
+
+
+# REPO
+type Repo {
+    name: String
+    owner: String
+    url: String
+    fullname: String
+    subs: [User]
+}
+
+input create_repo_input {
+    name: String
+    owner: String
+    url: String!
+}
+
+
+
+
+# USER
+type User {
+    name: String
+    email: String!
+    subd: [Repo]
+}
+
+input create_user_input{
+    name: String
+    email: String!
+}
+
+
+type Query {
+    repos: [Repo]
+    users: [User]
+}
+
+
+type Mutation {
+    # repo
+    create_repo(repo_input: create_repo_input!): Repo!
+
+    # user
+    create_user(user_input: create_user_input!): User!
+
+}
