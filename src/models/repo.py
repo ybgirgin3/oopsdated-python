@@ -1,5 +1,4 @@
 import datetime
-
 from sqlalchemy import Column, DateTime, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -12,6 +11,6 @@ class Repo(Base):
     name = Column(String)
     owner = Column(String)
     url = Column(String)
-    subs = Column(String)  # string of list
+    subs = Column(String, nullable=True)  # string of list
     created_at = Column(DateTime, default=datetime.datetime.now())
     updated_at = Column(DateTime, default=datetime.datetime.now())
