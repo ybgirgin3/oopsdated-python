@@ -8,9 +8,9 @@
 # app = FastAPI()
 #
 # app.include_router(graphql_app, prefix="/graphql")
+from ariadne.asgi import GraphQL
 from fastapi import FastAPI
 
-from ariadne.asgi import GraphQL
 from src.repo import repo_schema
 
 # Mount Ariadne GraphQL as sub-application for FastAPI
