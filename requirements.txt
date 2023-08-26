@@ -1,7 +1,5 @@
 fastapi==0.100.0
-pydantic==2.0.3
-pymongo==4.4.1
 python-dotenv==1.0.0
 uvicorn==0.23.1
 httpx==0.24.1   # just one of the dependecies of starlette
-
+ariadne~=0.20.1
