@@ -4,6 +4,7 @@ from ariadne import ObjectType, QueryType, MutationType
 
 from src.commons.db import DBProcess
 from src.models import repo
+from src.interfaces.repo import IRepo
 
 dbp = DBProcess(model=repo.Repo)
 
@@ -20,7 +21,14 @@ repo = ObjectType("Repo")
 def resolve_repo(*_):
     return dbp.read()
 
+    # name
+    # owner
+    # url
+
 
 # ---- MUTATIONS
-def resolver_create(_, data: Dict):
-    return dbp.create(data=data)
+@mutation.field("create_repo")
+def resolver_create(_, info, repo_input):
+    # def resolver_create(_, name: str, owner: str, url: str):
+    #     return dbp.create(data={"name": name, "owner": owner, "url": url})
+    return dbp.create(data=repo_input)
