@@ -22,12 +22,13 @@ mutation CreateRepo {
     repo_input: {
        name: "oopsdated-python", 
        owner: "ybgirgin3", 
-       url: "https://www.github.com/ybgirgin3/oopsdated-python"}) {
+       url: "https://www.github.com/ybgirgin3/oopsdated-python"}
+      ) {
           name
           owner
           url
+      }
   }
-}
 ```
 
 
