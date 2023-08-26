@@ -9,7 +9,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "user"
     id = Column(Integer, primary_key=True)
-    name = Column(String, unique=True)
-    email = Column(String, required=True)
+    name = Column(String)
+    email = Column(String)
     created_at = Column(DateTime, default=datetime.datetime.now())
     updated_at = Column(DateTime, default=datetime.datetime.now())

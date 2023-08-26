@@ -7,9 +7,9 @@ Base = declarative_base()
 
 
 class Repo(Base):
-    __tablename__ = "repos"
+    __tablename__ = "repo"
     id = Column(Integer, primary_key=True)
-    name = Column(String, unique=True)
+    name = Column(String)
     owner = Column(String)
     url = Column(String)
     subs = Column(String)  # string of list
