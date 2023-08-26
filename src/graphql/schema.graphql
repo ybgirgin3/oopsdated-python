@@ -1,11 +1,11 @@
-
+scalar Datetime
 
 # REPO
 type Repo {
+    id: ID!
     name: String
     owner: String
     url: String
-    fullname: String
     subs: [User]
 }
 
@@ -15,27 +15,23 @@ input create_repo_input {
     url: String!
 }
 
-
-
-
 # USER
 type User {
+    id: ID!
     name: String
     email: String!
     subd: [Repo]
 }
 
-input create_user_input{
+input create_user_input {
     name: String
     email: String!
 }
 
-
 type Query {
-    repos: [Repo]
-    users: [User]
+    repo: [Repo]
+    user: [User]
 }
-
 
 type Mutation {
     # repo
@@ -43,5 +39,4 @@ type Mutation {
 
     # user
     create_user(user_input: create_user_input!): User!
-
 }
