@@ -1,6 +1,22 @@
-scalar Datetime
+type Query {
+  # repo query
+  repo(filters: repo_filters): [Repo]
 
-# REPO
+  # user query
+  user(filters: user_filters): [User]
+}
+
+type Mutation {
+  # repo create function
+  create_repo(repo_input: create_repo_input!): Repo!
+  update_repo(id: ID!, update_repo_input: update_repo_input!): Repo!
+
+  # user create function
+  create_user(user_input: create_user_input!): User!
+  # update_user(id: ID!, update_user_input!): User!
+}
+
+# repo model
 type Repo {
   id: ID!
   name: String
@@ -9,19 +25,7 @@ type Repo {
   subs: [User]
 }
 
-input create_repo_input {
-  name: String
-  owner: String
-  url: String!
-}
-
-input update_repo_input {
-  name: String
-  owner: String
-  url: String
-}
-
-# USER
+# user model
 type User {
   id: ID!
   name: String
@@ -29,30 +33,35 @@ type User {
   subd: [Repo]
 }
 
+# create repo
+input create_repo_input {
+  name: String
+  owner: String
+  url: String!
+}
+
+# create user
 input create_user_input {
   name: String
   email: String!
 }
 
+# update repo
+input update_repo_input {
+  name: String
+  owner: String
+  url: String
+}
+
+# repo filter
 input repo_filters {
   name: String
   owner: String
   url: String
 }
 
-type Query {
-  # repo
-  repo(filters: repo_filters): [Repo]
-
-  # user
-  user: [User]
-}
-
-type Mutation {
-  # repo
-  create_repo(repo_input: create_repo_input!): Repo!
-  update_repo(id: ID!, update_repo_input: update_repo_input!): Repo!
-
-  # user
-  create_user(user_input: create_user_input!): User!
+# user filter
+input user_filters {
+  name: String
+  email: String
 }
