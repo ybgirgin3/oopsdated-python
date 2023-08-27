@@ -2,52 +2,57 @@ scalar Datetime
 
 # REPO
 type Repo {
-    id: ID!
-    name: String
-    owner: String
-    url: String
-    subs: [User]
+  id: ID!
+  name: String
+  owner: String
+  url: String
+  subs: [User]
 }
 
 input create_repo_input {
-    name: String
-    owner: String
-    url: String!
+  name: String
+  owner: String
+  url: String!
 }
 
 input update_repo_input {
-    name: String
-    owner: String
-    url: String
+  name: String
+  owner: String
+  url: String
 }
-
 
 # USER
 type User {
-    id: ID!
-    name: String
-    email: String!
-    subd: [Repo]
+  id: ID!
+  name: String
+  email: String!
+  subd: [Repo]
 }
 
 input create_user_input {
-    name: String
-    email: String!
+  name: String
+  email: String!
+}
+
+input repo_filters {
+  name: String
+  owner: String
+  url: String
 }
 
 type Query {
-    # repo
-    repo: [Repo]
+  # repo
+  repo(filters: repo_filters): [Repo]
 
-    # user
-    user: [User]
+  # user
+  user: [User]
 }
 
 type Mutation {
-    # repo
-    create_repo(repo_input: create_repo_input!): Repo!
-    update_repo(id: ID!, update_repo_input: update_repo_input!): Repo!
+  # repo
+  create_repo(repo_input: create_repo_input!): Repo!
+  update_repo(id: ID!, update_repo_input: update_repo_input!): Repo!
 
-    # user
-    create_user(user_input: create_user_input!): User!
+  # user
+  create_user(user_input: create_user_input!): User!
 }

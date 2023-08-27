@@ -15,9 +15,8 @@ repo = ObjectType("Repo")
 
 # ---- QUERIES
 @query.field("repo")
-def resolve_repos(*_, filters):
-    print("filter in repos", filters)
-    return dbp.read(filters=filters)
+def resolve_repos(_, info, filters: dict = {}):
+  return dbp.read(filters=filters)
 
 
 # @query.field("repo")
@@ -29,13 +28,13 @@ def resolve_repos(*_, filters):
 # ---- MUTATIONS
 @mutation.field("create_repo")
 def resolver_create(_, info, repo_input):
-    """
-    __summary__: create resolver for graphql query
-    """
-    return dbp.create(data=repo_input)
+  """
+  __summary__: create resolver for graphql query
+  """
+  return dbp.create(data=repo_input)
 
 
 @mutation.field("update_repo")
 def resolver_update(_, info, id, update_repo_input):
-    print("update repo input type:", type(update_repo_input), "info: ", info)
-    # return dbp.update()
+  print("update repo input type:", type(update_repo_input), "info: ", info)
+  # return dbp.update()
