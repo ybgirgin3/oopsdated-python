@@ -15,6 +15,13 @@ input create_repo_input {
     url: String!
 }
 
+input update_repo_input {
+    name: String
+    owner: String
+    url: String
+}
+
+
 # USER
 type User {
     id: ID!
@@ -29,13 +36,17 @@ input create_user_input {
 }
 
 type Query {
+    # repo
     repo: [Repo]
+
+    # user
     user: [User]
 }
 
 type Mutation {
     # repo
     create_repo(repo_input: create_repo_input!): Repo!
+    update_repo(id: ID!, update_repo_input: update_repo_input!): Repo!
 
     # user
     create_user(user_input: create_user_input!): User!

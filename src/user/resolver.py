@@ -1,5 +1,4 @@
 from ariadne import ObjectType, QueryType
-
 from src.commons.db import DBProcess
 from src.models import user
 

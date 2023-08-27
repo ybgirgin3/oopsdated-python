@@ -21,11 +21,12 @@ class DBProcess:
     def __init__(self, model: Union[m_repo.Repo, m_user.User]) -> None:
         self.model = model
 
-    def read(self, filters: dict = True) -> Union[m_repo, m_user]:
+    def read(self, filters: dict = {}) -> Union[m_repo, m_user]:
         with session() as sess:
             # create object from json
 
-            result = sess.query(self.model).where(filters).all()
+            # result = sess.query(self.model).where(**filters).all()
+            result = sess.query(self.model).filter_by(**filters).all()
 
             return result
 
@@ -49,7 +50,7 @@ class DBProcess:
             try:
                 # find one
                 # url must be unique
-                result = self.read(filters="")
+                result = self.read(filters={"id": id})
 
                 data["updated_at"] = datetime.datetime.today()
                 result.update(data)
