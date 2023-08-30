@@ -1,67 +1,67 @@
 type Query {
-  # repo query
-  repo(filters: repo_filters): [Repo]
+    # repo query
+    repo(filters: repo_filters): [Repo]
 
-  # user query
-  user(filters: user_filters): [User]
+    # user query
+    user(filters: user_filters): [User]
 }
 
 type Mutation {
-  # repo create function
-  create_repo(repo_input: create_repo_input!): Repo!
-  update_repo(id: ID!, update_repo_input: update_repo_input!): Repo!
+    # repo create function
+    create_repo(repo_input: create_repo_input!): Repo!
+    update_repo(id: ID!, update_repo_input: update_repo_input!): Repo!
 
-  # user create function
-  create_user(user_input: create_user_input!): User!
-  # update_user(id: ID!, update_user_input!): User!
+    # user create function
+    create_user(user_input: create_user_input!): User!
+    # update_user(id: ID!, update_user_input!): User!
 }
 
 # repo model
 type Repo {
-  id: ID!
-  name: String
-  owner: String
-  url: String
-  subs: [User]
+    id: ID!
+    name: String
+    owner: String
+    url: String
+    subs: [User]
 }
 
 # user model
 type User {
-  id: ID!
-  name: String
-  email: String!
-  subd: [Repo]
+    id: ID!
+    name: String
+    email: String!
+    subd: [Repo]
 }
 
 # create repo
 input create_repo_input {
-  name: String
-  owner: String
-  url: String!
+    name: String
+    owner: String
+    url: String!
 }
 
 # create user
 input create_user_input {
-  name: String
-  email: String!
+    name: String
+    email: String!
 }
 
 # update repo
 input update_repo_input {
-  name: String
-  owner: String
-  url: String
+    name: String
+    owner: String
+    url: String
 }
 
 # repo filter
 input repo_filters {
-  name: String
-  owner: String
-  url: String
+    name: String
+    owner: String
+    url: String
 }
 
 # user filter
 input user_filters {
-  name: String
-  email: String
+    name: String
+    email: String
 }
