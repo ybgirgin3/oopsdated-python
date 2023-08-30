@@ -2,8 +2,8 @@
 
 # create repo command
 
-
 **get repo gql query**
+
 ```gql
 query getRepo {
   repo {
@@ -14,8 +14,8 @@ query getRepo {
 }
 ```
 
-
 **create repo gql query**
+
 ```gql
 mutation CreateRepo {
   create_repo(
