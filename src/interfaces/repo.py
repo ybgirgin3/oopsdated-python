@@ -8,9 +8,11 @@ class IRepo(BaseModel):
     name: str
     owner: str
     url: str
+    subscribers: list[str]
 
 
 class IRepoUpdate(BaseModel):
     name: Optional[str]
     owner: Optional[str]
     url: Optional[str]
+    subscribers: Optional[list[str]]
