@@ -1,7 +1,5 @@
 import datetime
 from typing import Union
-from src.utils import object_as_dict
-from sqlalchemy import update
 
 
 from src.commons import session
@@ -27,10 +25,7 @@ class DBProcess:
     def read(self, filters: dict = {}) -> Union[m_repo.Repo, m_user.User]:
         with session() as sess:
             # create object from json
-
-            # result = sess.query(self.model).where(**filters).all()
             result = sess.query(self.model).filter_by(**filters)
-
             return result
 
     def create(self, data: dict) -> Union[m_repo.Repo, m_user.User]:
@@ -53,6 +48,10 @@ class DBProcess:
             try:
                 # find one
                 # url must be unique
+                subs = data.get("subscribers", None)
+                if isinstance(subs, list):
+                    data["subscribers"] = str(subs)
+
                 sess.query(self.model).where(self.model.id == id).update(data)
                 sess.commit()
 
