@@ -2,6 +2,7 @@ import datetime
 
 from sqlalchemy import Column, DateTime, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -12,6 +13,6 @@ class Repo(Base):
     name = Column(String)
     owner = Column(String)
     url = Column(String)
-    subs = Column(String, nullable=True)  # string of list
+    subscribers = Column(String)
     created_at = Column(DateTime, default=datetime.datetime.now())
     updated_at = Column(DateTime, default=datetime.datetime.now())
