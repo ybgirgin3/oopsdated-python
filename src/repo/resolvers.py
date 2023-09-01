@@ -47,5 +47,15 @@ def resolver_create(_, info, repo_input):
 
 @mutation.field("update_repo")
 def resolver_update(_, info, id, update_repo_input):
-    print("update_repo_input: ", update_repo_input)
+    """Update Repo Resolver
+
+    Args:
+        _ (_type_): _description_
+        info: _description_
+        id: id of the repo
+        repo_input (dict): repo input (must)
+
+    Returns:
+        _type_: type of Repo
+    """
     return dbp.update(id, update_repo_input)
